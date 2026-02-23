@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import { 
   TrendingUpIcon, 
   BrainIcon, 
-  ScanIcon,
   ArrowRightIcon,
   Grid3x3Icon
 } from 'lucide-react';
@@ -54,7 +53,7 @@ export default function Home() {
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <Card key={feature.title} className="group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2">
+              <Card key={feature.title} className="group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 h-full flex flex-col">
                 <CardHeader>
                   <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6 text-white" />
@@ -64,7 +63,7 @@ export default function Home() {
                     {feature.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 grow flex flex-col justify-end">
                   <div className="flex flex-wrap gap-2">
                     {feature.concepts.map((concept) => (
                       <Badge key={concept} variant="secondary" className="text-xs">
@@ -133,14 +132,14 @@ export default function Home() {
                 concepts: ['Stacked Layers', 'Causal Masking', 'Text Generation']
               }
             ].map((feature) => (
-              <Card key={feature.href} className="border-2 hover:border-blue-500 transition-all group">
+              <Card key={feature.href} className="border-2 hover:border-blue-500 transition-all group h-full flex flex-col">
                 <CardHeader>
                   <CardTitle className="group-hover:text-blue-600 transition-colors">
                     {feature.title}
                   </CardTitle>
                   <CardDescription>{feature.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 grow flex flex-col justify-end">
                   <div className="flex flex-wrap gap-2">
                     {feature.concepts.map((concept) => (
                       <Badge key={concept} variant="secondary" className="text-xs">
