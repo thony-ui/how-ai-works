@@ -14,7 +14,7 @@ export function GPTDecoderPyTorchComparison() {
       </CardHeader>
       <CardContent>
         <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-          <pre className="font-mono text-sm">
+          <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn as nn
 import torch.nn.functional as F

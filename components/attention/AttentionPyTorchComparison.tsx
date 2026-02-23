@@ -23,7 +23,7 @@ export function AttentionPyTorchComparison() {
 
           <TabsContent value="basic" className="space-y-3">
             <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm">
+              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn.functional as F
 import math
@@ -91,7 +91,7 @@ print(f"\\nAttention weights:\\n{weights[0]}")`}
 
           <TabsContent value="multihead" className="space-y-3">
             <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm">
+              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -173,7 +173,7 @@ print(f"Weights shape: {weights.shape}")  # (2, 8, 10, 10)`}
 
           <TabsContent value="module" className="space-y-3">
             <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm">
+              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn as nn
 
