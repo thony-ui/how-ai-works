@@ -165,7 +165,7 @@ export function AttentionHeatmap({
     <canvas
       ref={canvasRef}
       className="w-full cursor-pointer border rounded"
-      style={{ width: '700px', height: '500px' }}
+      style={{ maxWidth: '700px', height: '500px' }}
     />
   );
 }

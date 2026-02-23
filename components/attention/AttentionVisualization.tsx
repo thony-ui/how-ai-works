@@ -192,7 +192,7 @@ export function AttentionVisualization({
     <canvas
       ref={canvasRef}
       className="w-full border rounded"
-      style={{ width: '900px', height: '300px' }}
+      style={{ maxWidth: '900px', height: '300px' }}
     />
   );
 }

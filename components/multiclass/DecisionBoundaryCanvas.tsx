@@ -150,10 +150,12 @@ export function DecisionBoundaryCanvas({
   }, [dataset, weights, onPointClick, selectedPoint]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="w-full cursor-pointer border rounded"
-      style={{ width: '600px', height: '600px' }}
-    />
+    <div style={{ maxWidth: '600px', width: '100%', aspectRatio: '1', position: 'relative' }}>
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full cursor-pointer border rounded"
+        style={{ position: 'absolute', inset: 0 }}
+      />
+    </div>
   );
 }

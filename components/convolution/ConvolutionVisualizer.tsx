@@ -206,6 +206,7 @@ export function ConvolutionVisualizer({
       width={width}
       height={height}
       className="border border-gray-200 rounded-lg bg-white"
+      style={{ maxWidth: '100%', height: 'auto' }}
     />
   );
 }

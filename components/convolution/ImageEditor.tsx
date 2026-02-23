@@ -93,12 +93,13 @@ export function ImageEditor({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 flex flex-col items-center">
       <canvas
         ref={canvasRef}
         width={width}
         height={height}
         className="border-2 border-gray-300 rounded cursor-crosshair"
+        style={{ maxWidth: '100%', height: 'auto' }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

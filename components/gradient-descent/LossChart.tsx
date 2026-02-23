@@ -121,7 +121,9 @@ export function LossChart({ lossHistory, width = 400, height = 200 }: LossChartP
   return (
     <div className="border border-gray-200 rounded-lg p-4 bg-white">
       <h3 className="text-sm font-medium mb-2">Loss Over Time</h3>
-      <canvas ref={canvasRef} width={width} height={height} />
+      <div className="overflow-x-auto">
+        <canvas ref={canvasRef} width={width} height={height} style={{ maxWidth: '100%', height: 'auto' }} />
+      </div>
       {lossHistory.length > 0 && (
         <p className="text-xs text-gray-600 mt-2">
           Current Loss: <span className="font-mono font-medium">{lossHistory[lossHistory.length - 1].toFixed(4)}</span>

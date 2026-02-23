@@ -231,6 +231,7 @@ export function CanvasVisualizer({
       width={width}
       height={height}
       className="border border-gray-200 rounded-lg cursor-pointer bg-white"
+      style={{ maxWidth: '100%', height: 'auto' }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

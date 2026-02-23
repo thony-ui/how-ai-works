@@ -209,8 +209,8 @@ export default function MultiClassPlayground() {
                         <p className="font-semibold text-blue-600">
                           Step {step.step}: {step.description}
                         </p>
-                        <div className="bg-blue-50 p-3 rounded">
-                          <p>{step.formula}</p>
+                        <div className="bg-blue-50 p-3 rounded overflow-x-auto">
+                          <p className="whitespace-nowrap">{step.formula}</p>
                           {step.values && Array.isArray(step.values) && step.values.length > 0 && (
                             <div className="mt-2">
                               {typeof step.values[0] === 'number' ? (
@@ -239,8 +239,8 @@ export default function MultiClassPlayground() {
                         <p className="font-semibold text-purple-600">
                           Step {step.step}: {step.description}
                         </p>
-                        <div className="bg-purple-50 p-3 rounded">
-                          <p>{step.formula}</p>
+                        <div className="bg-purple-50 p-3 rounded overflow-x-auto">
+                          <p className="whitespace-nowrap">{step.formula}</p>
                         </div>
                         {idx < backwardSteps.length - 1 && <Separator />}
                       </div>

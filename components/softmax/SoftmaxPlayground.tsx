@@ -134,8 +134,8 @@ export default function SoftmaxPlayground() {
                     {softmaxSteps.map((step, idx) => (
                       <div key={idx} className="space-y-2">
                         <p className="font-semibold text-blue-600">Step {step.step}: {step.description}</p>
-                        <div className="bg-blue-50 p-3 rounded">
-                          <p>{step.formula}</p>
+                        <div className="bg-blue-50 p-3 rounded overflow-x-auto">
+                          <p className="whitespace-nowrap">{step.formula}</p>
                           {step.values.length > 1 && step.values.length === logits.length && (
                             <div className="mt-2 space-y-1">
                               {step.values.map((val, i) => (
@@ -172,8 +172,8 @@ export default function SoftmaxPlayground() {
                     {lossSteps.map((step, idx) => (
                       <div key={idx} className="space-y-2">
                         <p className="font-semibold text-red-600">Step {step.step}: {step.description}</p>
-                        <div className="bg-red-50 p-3 rounded">
-                          <p>{step.formula}</p>
+                        <div className="bg-red-50 p-3 rounded overflow-x-auto">
+                          <p className="whitespace-nowrap">{step.formula}</p>
                         </div>
                         {idx < lossSteps.length - 1 && <Separator />}
                       </div>
