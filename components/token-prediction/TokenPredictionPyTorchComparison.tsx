@@ -13,8 +13,8 @@ export function TokenPredictionPyTorchComparison() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-          <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap wrap-break-word">
+        <div className="text-black rounded-lg overflow-x-auto">
+          <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn.functional as F
 from transformers import GPT2LMHeadModel, GPT2Tokenizer

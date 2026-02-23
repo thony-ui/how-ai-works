@@ -8,14 +8,14 @@ interface TokenPredictionVizProps {
 
 export function TokenPredictionViz({ predictions }: TokenPredictionVizProps) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 overflow-hidden">
       {predictions.map((pred, i) => (
         <div key={i} className="space-y-1">
-          <div className="flex justify-between items-center text-sm">
-            <span className="font-semibold">
+          <div className="flex justify-between items-center text-sm gap-2 min-w-0">
+            <span className="font-semibold truncate">
               {i + 1}. &quot;{pred.token}&quot;
             </span>
-            <span className="font-mono text-muted-foreground">
+            <span className="font-mono text-muted-foreground flex-shrink-0">
               {(pred.probability * 100).toFixed(2)}%
             </span>
           </div>
@@ -25,7 +25,7 @@ export function TokenPredictionViz({ predictions }: TokenPredictionVizProps) {
               style={{ width: `${pred.probability * 100}%` }}
             />
             <div className="absolute inset-0 flex items-center justify-start px-3">
-              <span className="text-xs font-mono text-foreground mix-blend-difference">
+              <span className="text-xs font-mono text-foreground mix-blend-difference truncate">
                 logit: {pred.logit.toFixed(3)}
               </span>
             </div>

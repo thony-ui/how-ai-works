@@ -10,7 +10,7 @@ export function PyTorchComparison() {
         <CardTitle className="text-lg">PyTorch Implementation</CardTitle>
       </CardHeader>
       <CardContent>
-        <pre className="text-xs overflow-x-auto bg-gray-50 p-4 rounded-lg">
+        <pre className="text-xs overflow-x-auto text-black rounded-lg min-w-0 max-w-full whitespace-pre-wrap break-words">
           <code className="language-python">{`import torch
 import torch.nn as nn
 

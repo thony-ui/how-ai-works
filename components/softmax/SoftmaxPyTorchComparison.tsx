@@ -22,8 +22,8 @@ export function SoftmaxPyTorchComparison() {
           </TabsList>
 
           <TabsContent value="softmax" className="space-y-3">
-            <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm">
+            <div className="text-black rounded-lg overflow-x-auto">
+              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn.functional as F
 
@@ -52,8 +52,8 @@ probabilities = exp_logits / exp_logits.sum()`}
           </TabsContent>
 
           <TabsContent value="loss" className="space-y-3">
-            <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm">
+            <div className="text-black rounded-lg overflow-x-auto">
+              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn.functional as F
 
@@ -89,8 +89,8 @@ print(f"Loss: {loss.item():.4f}")
           </TabsContent>
 
           <TabsContent value="gradient" className="space-y-3">
-            <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm">
+            <div className="text-black rounded-lg overflow-x-auto">
+              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn.functional as F
 

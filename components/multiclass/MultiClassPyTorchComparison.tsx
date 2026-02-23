@@ -22,7 +22,7 @@ export function MultiClassPyTorchComparison() {
           </TabsList>
 
           <TabsContent value="model" className="space-y-3">
-            <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
+            <div className="text-black p-4 rounded-lg overflow-x-auto">
               <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn as nn
@@ -69,7 +69,7 @@ print(f"Predicted class: {predicted_class.item()}")`}
           </TabsContent>
 
           <TabsContent value="training" className="space-y-3">
-            <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
+            <div className="text-black rounded-lg overflow-x-auto">
               <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn as nn
@@ -120,7 +120,7 @@ for epoch in range(num_epochs):
           </TabsContent>
 
           <TabsContent value="prediction" className="space-y-3">
-            <div className="bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
+            <div className="text-black rounded-lg overflow-x-auto">
               <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
 {`import torch
 import torch.nn.functional as F
