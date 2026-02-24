@@ -264,7 +264,7 @@ export default function KMeansPlayground() {
           </Card>
 
           {/* Python Comparison */}
-          {/* <Card>
+          <Card>
             <CardHeader>
               <CardTitle>Python/Scikit-learn Comparison</CardTitle>
               <CardDescription>
@@ -279,7 +279,7 @@ export default function KMeansPlayground() {
                 initMethod={initMethod}
               />
             </CardContent>
-          </Card> */}
+          </Card> 
         </div>
 
         {/* Right Column - Controls */}
