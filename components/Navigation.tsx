@@ -26,7 +26,9 @@ import {
   NetworkIcon,
   TypeIcon,
   RocketIcon,
-  SparklesIcon
+  SparklesIcon,
+  TreeDeciduousIcon,
+  ScatterChartIcon
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -38,6 +40,10 @@ const navSections = {
     { href: '/gradient-descent', label: 'Gradient Descent', icon: TrendingUpIcon },
     { href: '/backpropagation', label: 'Backpropagation', icon: BrainIcon },
     { href: '/convolution', label: 'Convolution', icon: Grid3x3Icon },
+  ],
+  mlBasics: [
+    { href: '/decision-tree', label: 'Decision Trees', icon: TreeDeciduousIcon },
+    { href: '/k-means', label: 'K-Means Clustering', icon: ScatterChartIcon },
   ],
   advanced: [
     { href: '/softmax', label: 'Softmax & Cross-Entropy', icon: PieChartIcon },
@@ -97,6 +103,38 @@ function NavLinks({
         )}
         <div className="space-y-1">
           {navSections.fundamentals.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            
+            return (
+              <Link key={item.href} href={item.href} onClick={onItemClick}>
+                <Button
+                  variant={isActive ? 'default' : 'ghost'}
+                  className={cn(
+                    "w-full justify-start gap-3",
+                    mobile ? "" : sidebarOpen ? "" : "justify-center px-2"
+                  )}
+                >
+                  <Icon className="w-5 h-5 shrink-0" />
+                  {(mobile || sidebarOpen) && <span>{item.label}</span>}
+                </Button>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <Separator />
+
+      {/* ML Basics */}
+      <div>
+        {(mobile || sidebarOpen) && (
+          <h3 className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            ML Basics
+          </h3>
+        )}
+        <div className="space-y-1">
+          {navSections.mlBasics.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
             
