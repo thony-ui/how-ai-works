@@ -1,31 +1,31 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+import React, { useState, useMemo } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
   runKMeans,
   runKMeansWithSteps,
   generateClusteredData,
   calculateSilhouetteScore,
-  calculateElbowMethod
-} from '@/lib/math/k-means';
-import { KMeansVisualizer } from './KMeansVisualizer';
-import { ElbowChart } from './ElbowChart';
-import { KMeansPyTorchComparison } from './KMeansPyTorchComparison';
-import { RotateCcwIcon, PlusIcon, PlayIcon, PauseIcon } from 'lucide-react';
+  calculateElbowMethod,
+} from "@/lib/math/k-means";
+import { KMeansVisualizer } from "./KMeansVisualizer";
+import { ElbowChart } from "./ElbowChart";
+import { KMeansPyTorchComparison } from "./KMeansPyTorchComparison";
+import { RotateCcwIcon, PlusIcon, PlayIcon, PauseIcon } from "lucide-react";
 
 export default function KMeansPlayground() {
   const [numClusters, setNumClusters] = useState<number>(3);
   const [maxIterations, setMaxIterations] = useState<number>(100);
-  const [initMethod, setInitMethod] = useState<'random' | 'kmeans++'>('kmeans++');
+  const [initMethod, setInitMethod] = useState<"random" | "kmeans++">("kmeans++");
   const [numPoints, setNumPoints] = useState<number>(90);
   const [dataVersion, setDataVersion] = useState<number>(0);
-  
+
   // Animation state
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -62,18 +62,20 @@ export default function KMeansPlayground() {
   );
 
   // Get current step for animation
-  const displayStep = isAnimating ? steps[currentStep] : {
-    points: clusterResult.points,
-    centroids: clusterResult.centroids,
-    inertia: clusterResult.inertia
-  };
+  const displayStep = isAnimating
+    ? steps[currentStep]
+    : {
+        points: clusterResult.points,
+        centroids: clusterResult.centroids,
+        inertia: clusterResult.inertia,
+      };
 
   // Animation control
   React.useEffect(() => {
     if (!isAnimating) return;
 
     const interval = setInterval(() => {
-      setCurrentStep(prev => {
+      setCurrentStep((prev) => {
         if (prev >= steps.length - 1) {
           setIsAnimating(false);
           return prev;
@@ -97,22 +99,22 @@ export default function KMeansPlayground() {
   const reset = () => {
     setNumClusters(3);
     setMaxIterations(100);
-    setInitMethod('kmeans++');
+    setInitMethod("kmeans++");
     setNumPoints(90);
     setIsAnimating(false);
     setCurrentStep(0);
   };
 
   const regenerateData = () => {
-    setDataVersion(v => v + 1);
+    setDataVersion((v) => v + 1);
     setIsAnimating(false);
     setCurrentStep(0);
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6 min-w-0">
       {/* Header */}
-      <div className="space-y-2">
+      <div className="space-y-2 min-w-0">
         <h1 className="text-4xl font-bold tracking-tight">K-Means Clustering</h1>
         <p className="text-lg text-muted-foreground">
           Interactive visualization of K-means clustering algorithm for unsupervised learning.
@@ -120,10 +122,10 @@ export default function KMeansPlayground() {
       </div>
 
       {/* Status Bar */}
-      <Card>
-        <CardContent className="">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
+      <Card className="min-w-0">
+        <CardContent className="min-w-0">
+          <div className="flex flex-wrap items-center justify-between gap-4 min-w-0">
+            <div className="flex items-center gap-6 flex-wrap min-w-0">
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">K (Clusters)</p>
                 <p className="text-2xl font-bold">{numClusters}</p>
@@ -138,48 +140,42 @@ export default function KMeansPlayground() {
               </div>
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">Inertia</p>
-                <p className="text-2xl font-bold text-blue-600">
-                  {displayStep.inertia.toFixed(2)}
-                </p>
+                <p className="text-2xl font-bold text-blue-600">{displayStep.inertia.toFixed(2)}</p>
               </div>
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">Silhouette</p>
-                <p className="text-2xl font-bold text-green-600">
-                  {silhouetteScore.toFixed(3)}
-                </p>
+                <p className="text-2xl font-bold text-green-600">{silhouetteScore.toFixed(3)}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+
+            <div className="flex items-center gap-2 min-w-0">
               <Badge variant={clusterResult.converged ? "default" : "secondary"}>
                 {clusterResult.converged ? "Converged" : "Max Iterations"}
               </Badge>
               <Badge variant="outline">
-                {initMethod === 'kmeans++' ? 'K-Means++' : 'Random Init'}
+                {initMethod === "kmeans++" ? "K-Means++" : "Random Init"}
               </Badge>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-w-0">
         {/* Left Column - Visualizations */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-6 min-w-0">
           {/* Cluster Visualization */}
-          <Card>
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
+              <div className="flex justify-between items-start gap-3 min-w-0">
+                <div className="min-w-0">
                   <CardTitle>Cluster Visualization</CardTitle>
-                  <CardDescription>
-                    {isAnimating ? `Iteration ${currentStep + 1} of ${steps.length}` : 
-                     'Final clustering result - X marks centroids'}
+                  <CardDescription className="min-w-0">
+                    {isAnimating
+                      ? `Iteration ${currentStep + 1} of ${steps.length}`
+                      : "Final clustering result - X marks centroids"}
                   </CardDescription>
                 </div>
-                <Button
-                  onClick={toggleAnimation}
-                  variant="outline"
-                  size="sm"
-                >
+                <Button onClick={toggleAnimation} variant="outline" size="sm" className="shrink-0">
                   {isAnimating ? (
                     <>
                       <PauseIcon className="w-4 h-4 mr-2" />
@@ -194,8 +190,8 @@ export default function KMeansPlayground() {
                 </Button>
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="flex justify-center overflow-x-auto">
+            <CardContent className="min-w-0">
+              <div className="flex justify-center min-w-0 overflow-x-auto">
                 <KMeansVisualizer
                   points={displayStep.points}
                   centroids={displayStep.centroids}
@@ -207,31 +203,31 @@ export default function KMeansPlayground() {
           </Card>
 
           {/* Elbow Method */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle>Elbow Method</CardTitle>
               <CardDescription>
                 Find optimal K by looking for the &quot;elbow&quot; in the inertia curve
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="flex justify-center overflow-x-auto">
+            <CardContent className="min-w-0">
+              <div className="flex justify-center min-w-0 overflow-x-auto">
                 <ElbowChart data={elbowData} currentK={numClusters} />
               </div>
               <p className="text-sm text-muted-foreground mt-4">
-                The elbow point suggests the optimal number of clusters where adding more clusters 
+                The elbow point suggests the optimal number of clusters where adding more clusters
                 provides diminishing returns in reducing inertia.
               </p>
             </CardContent>
           </Card>
 
           {/* Algorithm Explanation */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle>How K-Means Works</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
+            <CardContent className="space-y-4 min-w-0">
+              <div className="min-w-0">
                 <h3 className="font-semibold text-lg mb-2">Algorithm Steps</h3>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
                   <li>Initialize K centroids (randomly or using K-means++)</li>
@@ -241,22 +237,25 @@ export default function KMeansPlayground() {
                 </ol>
               </div>
               <Separator />
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold text-lg mb-2">K-Means++ Initialization</h3>
                 <p className="text-sm text-muted-foreground">
                   K-means++ improves initialization by selecting centroids that are far apart,
-                  leading to better and more consistent clustering results compared to random initialization.
+                  leading to better and more consistent clustering results compared to random
+                  initialization.
                 </p>
               </div>
               <Separator />
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold text-lg mb-2">Key Metrics</h3>
                 <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
                   <li>
-                    <strong>Inertia:</strong> Sum of squared distances to nearest centroid (lower is better)
+                    <strong>Inertia:</strong> Sum of squared distances to nearest centroid (lower is
+                    better)
                   </li>
                   <li>
-                    <strong>Silhouette Score:</strong> Measures cluster separation quality (-1 to 1, higher is better)
+                    <strong>Silhouette Score:</strong> Measures cluster separation quality (-1 to 1,
+                    higher is better)
                   </li>
                 </ul>
               </div>
@@ -264,14 +263,14 @@ export default function KMeansPlayground() {
           </Card>
 
           {/* Python Comparison */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle>Python/Scikit-learn Comparison</CardTitle>
               <CardDescription>
                 See how this compares to scikit-learn&apos;s implementation
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="min-w-0">
               <KMeansPyTorchComparison
                 points={rawData}
                 numClusters={numClusters}
@@ -279,24 +278,22 @@ export default function KMeansPlayground() {
                 initMethod={initMethod}
               />
             </CardContent>
-          </Card> 
+          </Card>
         </div>
 
         {/* Right Column - Controls */}
-        <div className="space-y-6">
+        <div className="space-y-6 min-w-0">
           {/* Clustering Parameters */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle>Clustering Parameters</CardTitle>
-              <CardDescription>
-                Adjust K-means settings
-              </CardDescription>
+              <CardDescription>Adjust K-means settings</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <div className="flex justify-between">
+            <CardContent className="space-y-6 min-w-0">
+              <div className="space-y-2 min-w-0">
+                <div className="flex justify-between min-w-0">
                   <Label>Number of Clusters (K)</Label>
-                  <span className="text-sm font-mono">{numClusters}</span>
+                  <span className="text-sm font-mono shrink-0">{numClusters}</span>
                 </div>
                 <Slider
                   value={[numClusters]}
@@ -316,10 +313,10 @@ export default function KMeansPlayground() {
 
               <Separator />
 
-              <div className="space-y-2">
-                <div className="flex justify-between">
+              <div className="space-y-2 min-w-0">
+                <div className="flex justify-between min-w-0">
                   <Label>Max Iterations</Label>
-                  <span className="text-sm font-mono">{maxIterations}</span>
+                  <span className="text-sm font-mono shrink-0">{maxIterations}</span>
                 </div>
                 <Slider
                   value={[maxIterations]}
@@ -339,29 +336,29 @@ export default function KMeansPlayground() {
 
               <Separator />
 
-              <div className="space-y-2">
+              <div className="space-y-2 min-w-0">
                 <Label>Initialization Method</Label>
-                <div className="flex gap-2">
+                <div className="flex gap-2 min-w-0">
                   <Button
-                    variant={initMethod === 'kmeans++' ? 'default' : 'outline'}
+                    variant={initMethod === "kmeans++" ? "default" : "outline"}
                     onClick={() => {
-                      setInitMethod('kmeans++');
+                      setInitMethod("kmeans++");
                       setIsAnimating(false);
                       setCurrentStep(0);
                     }}
-                    className="flex-1"
+                    className="flex-1 min-w-0"
                     size="sm"
                   >
                     K-Means++
                   </Button>
                   <Button
-                    variant={initMethod === 'random' ? 'default' : 'outline'}
+                    variant={initMethod === "random" ? "default" : "outline"}
                     onClick={() => {
-                      setInitMethod('random');
+                      setInitMethod("random");
                       setIsAnimating(false);
                       setCurrentStep(0);
                     }}
-                    className="flex-1"
+                    className="flex-1 min-w-0"
                     size="sm"
                   >
                     Random
@@ -375,15 +372,15 @@ export default function KMeansPlayground() {
           </Card>
 
           {/* Data Controls */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle>Data Settings</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex justify-between">
+            <CardContent className="space-y-4 min-w-0">
+              <div className="space-y-2 min-w-0">
+                <div className="flex justify-between min-w-0">
                   <Label>Number of Points</Label>
-                  <span className="text-sm font-mono">{numPoints}</span>
+                  <span className="text-sm font-mono shrink-0">{numPoints}</span>
                 </div>
                 <Slider
                   value={[numPoints]}
@@ -394,11 +391,7 @@ export default function KMeansPlayground() {
                 />
               </div>
 
-              <Button
-                onClick={regenerateData}
-                variant="outline"
-                className="w-full"
-              >
+              <Button onClick={regenerateData} variant="outline" className="w-full">
                 <PlusIcon className="w-4 h-4 mr-2" />
                 Regenerate Data
               </Button>
@@ -406,11 +399,11 @@ export default function KMeansPlayground() {
           </Card>
 
           {/* Actions */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle>Actions</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="space-y-2 min-w-0">
               <Button onClick={reset} variant="outline" className="w-full">
                 <RotateCcwIcon className="w-4 h-4 mr-2" />
                 Reset to Defaults
@@ -419,11 +412,11 @@ export default function KMeansPlayground() {
           </Card>
 
           {/* Info Card */}
-          <Card>
-            <CardHeader>
+          <Card className="min-w-0">
+            <CardHeader className="min-w-0">
               <CardTitle className="text-sm">Key Concepts</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-xs text-muted-foreground">
+            <CardContent className="space-y-3 text-xs text-muted-foreground min-w-0">
               <div>
                 <span className="font-semibold text-foreground">Choosing K:</span> Use the elbow
                 method or silhouette analysis to find the optimal number of clusters.
