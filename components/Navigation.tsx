@@ -1,21 +1,21 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { 
-  BrainIcon, 
-  MenuIcon, 
-  HomeIcon, 
+} from "@/components/ui/sheet";
+import {
+  BrainIcon,
+  MenuIcon,
+  HomeIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   TrendingUpIcon,
@@ -28,41 +28,38 @@ import {
   RocketIcon,
   SparklesIcon,
   TreeDeciduousIcon,
-  ScatterChartIcon
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+  ScatterChartIcon,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const navSections = {
-  main: [
-    { href: '/', label: 'Home', icon: HomeIcon },
-  ],
+  main: [{ href: "/", label: "Home", icon: HomeIcon }],
   fundamentals: [
-    { href: '/gradient-descent', label: 'Gradient Descent', icon: TrendingUpIcon },
-    { href: '/backpropagation', label: 'Backpropagation', icon: BrainIcon },
-    { href: '/convolution', label: 'Convolution', icon: Grid3x3Icon },
+    { href: "/gradient-descent", label: "Gradient Descent", icon: TrendingUpIcon },
+    { href: "/backpropagation", label: "Backpropagation", icon: BrainIcon },
+    { href: "/convolution", label: "Convolution", icon: Grid3x3Icon },
   ],
   mlBasics: [
-    { href: '/decision-tree', label: 'Decision Trees', icon: TreeDeciduousIcon },
-    { href: '/k-means', label: 'K-Means Clustering', icon: ScatterChartIcon },
+    { href: "/decision-tree", label: "Decision Trees", icon: TreeDeciduousIcon },
+    { href: "/k-means", label: "K-Means Clustering", icon: ScatterChartIcon },
   ],
   advanced: [
-    { href: '/softmax', label: 'Softmax & Cross-Entropy', icon: PieChartIcon },
-    { href: '/multiclass', label: 'Multi-Class Classification', icon: LayersIcon },
-    { href: '/attention', label: 'Attention Mechanism', icon: EyeIcon },
-    { href: '/transformer', label: 'Transformer Block', icon: NetworkIcon },
-    { href: '/token-prediction', label: 'Next-Token Prediction', icon: TypeIcon },
-    { href: '/gpt-decoder', label: 'GPT Decoder', icon: RocketIcon },
-  ]
+    { href: "/softmax", label: "Softmax & Cross-Entropy", icon: PieChartIcon },
+    { href: "/multiclass", label: "Multi-Class Classification", icon: LayersIcon },
+    { href: "/attention", label: "Attention Mechanism", icon: EyeIcon },
+    { href: "/transformer", label: "Transformer Block", icon: NetworkIcon },
+    { href: "/token-prediction", label: "Next-Token Prediction", icon: TypeIcon },
+    { href: "/gpt-decoder", label: "GPT Decoder", icon: RocketIcon },
+  ],
 };
 
-// NavLinks component extracted outside to avoid render issues
-function NavLinks({ 
-  mobile = false, 
+function NavLinks({
+  mobile = false,
   onItemClick,
   sidebarOpen,
-  pathname
-}: { 
-  mobile?: boolean; 
+  pathname,
+}: {
+  mobile?: boolean;
   onItemClick?: () => void;
   sidebarOpen?: boolean;
   pathname: string;
@@ -74,11 +71,11 @@ function NavLinks({
         {navSections.main.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
-          
+
           return (
             <Link key={item.href} href={item.href} onClick={onItemClick}>
               <Button
-                variant={isActive ? 'default' : 'ghost'}
+                variant={isActive ? "default" : "ghost"}
                 className={cn(
                   "w-full justify-start gap-3",
                   mobile ? "" : sidebarOpen ? "" : "justify-center px-2"
@@ -105,11 +102,11 @@ function NavLinks({
           {navSections.fundamentals.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-            
+
             return (
               <Link key={item.href} href={item.href} onClick={onItemClick}>
                 <Button
-                  variant={isActive ? 'default' : 'ghost'}
+                  variant={isActive ? "default" : "ghost"}
                   className={cn(
                     "w-full justify-start gap-3",
                     mobile ? "" : sidebarOpen ? "" : "justify-center px-2"
@@ -137,11 +134,11 @@ function NavLinks({
           {navSections.mlBasics.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-            
+
             return (
               <Link key={item.href} href={item.href} onClick={onItemClick}>
                 <Button
-                  variant={isActive ? 'default' : 'ghost'}
+                  variant={isActive ? "default" : "ghost"}
                   className={cn(
                     "w-full justify-start gap-3",
                     mobile ? "" : sidebarOpen ? "" : "justify-center px-2"
@@ -169,11 +166,11 @@ function NavLinks({
           {navSections.advanced.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-            
+
             return (
               <Link key={item.href} href={item.href} onClick={onItemClick}>
                 <Button
-                  variant={isActive ? 'default' : 'ghost'}
+                  variant={isActive ? "default" : "ghost"}
                   className={cn(
                     "w-full justify-start gap-3",
                     mobile ? "" : sidebarOpen ? "" : "justify-center px-2"
@@ -209,19 +206,25 @@ export function Navigation({ children }: { children: React.ReactNode }) {
                   <MenuIcon className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72">
-                <SheetHeader>
-                  <SheetTitle className="flex items-center gap-2">
-                    <SparklesIcon className="w-5 h-5 text-blue-600" />
-                    AI From First Principles
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="mt-6">
-                  <NavLinks 
-                    mobile 
-                    onItemClick={() => setMobileOpen(false)} 
-                    pathname={pathname}
-                  />
+
+              {/* ✅ Scrollable mobile sheet */}
+              <SheetContent side="left" className="w-72 p-0">
+                <div className="flex flex-col h-full">
+                  <SheetHeader className="px-6 py-4 border-b">
+                    <SheetTitle className="flex items-center gap-2">
+                      <SparklesIcon className="w-5 h-5 text-blue-600" />
+                      AI From First Principles
+                    </SheetTitle>
+                  </SheetHeader>
+
+                  {/* scroll container */}
+                  <div className="flex-1 min-h-0 overflow-y-auto px-6 py-4">
+                    <NavLinks
+                      mobile
+                      onItemClick={() => setMobileOpen(false)}
+                      pathname={pathname}
+                    />
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
@@ -264,10 +267,7 @@ export function Navigation({ children }: { children: React.ReactNode }) {
           )}
         >
           <div className="p-4">
-            <NavLinks 
-              sidebarOpen={sidebarOpen} 
-              pathname={pathname}
-            />
+            <NavLinks sidebarOpen={sidebarOpen} pathname={pathname} />
           </div>
         </aside>
 
