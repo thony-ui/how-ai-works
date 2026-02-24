@@ -104,7 +104,7 @@ plt.show()`;
         </pre>
       </div>
 
-      <div>
+      <div className="min-w-0">
         <div className="flex justify-between items-start mb-2">
           <p className="text-sm font-semibold">
             Elbow Method:
