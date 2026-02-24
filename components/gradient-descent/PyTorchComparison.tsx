@@ -4,14 +4,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function PyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg">PyTorch Implementation</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <pre className="text-xs overflow-x-auto text-black rounded-lg min-w-0 max-w-full whitespace-pre-wrap break-words">
-          <code className="language-python">{`import torch
+  const code = `import torch
 import torch.nn as nn
 
 # Sample data
@@ -43,7 +36,32 @@ for epoch in range(100):
 # Get learned parameters
 w = model.weight.item()
 b = model.bias.item()
-print(f'Learned: w = {w:.4f}, b = {b:.4f}')`}</code>
+print(f'Learned: w = {w:.4f}, b = {b:.4f}')`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg">PyTorch Implementation</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex justify-between items-start mb-2">
+          <p className="text-sm text-muted-foreground">
+            Gradient descent with PyTorch:
+          </p>
+          <button
+            onClick={handleCopy}
+            className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+            type="button"
+          >
+            Copy Code
+          </button>
+        </div>
+        <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+          <code>{code}</code>
         </pre>
       </CardContent>
     </Card>

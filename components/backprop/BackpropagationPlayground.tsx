@@ -271,17 +271,51 @@ export default function BackpropagationPlayground() {
                   {phase === 'loss' && networkState.loss !== undefined && (
                     <div className="space-y-2">
                       <p className="font-semibold text-red-600">Loss Computation - Step by Step:</p>
-                      <div className="bg-red-50 p-4 rounded space-y-2">
+                      <div className="bg-red-50 p-4 rounded space-y-3">
                         <div>
-                          <p className="font-medium text-red-700">Mean Squared Error (MSE):</p>
-                          <p className="mt-1">L = (prediction - target)²</p>
+                          <p className="font-medium text-red-700">Mean Squared Error (MSE) Loss Function:</p>
+                          <div className="bg-white p-3 rounded border border-red-200 my-2">
+                            <p className="font-mono text-sm">L = ½(ŷ - y)²</p>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              where ŷ = prediction, y = target
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Note: We use ½ so the derivative is cleaner: ∂L/∂ŷ = (ŷ - y)
+                            </p>
+                          </div>
                         </div>
-                        <div className="space-y-1">
-                          <p>prediction = {networkState.a2![0][0].toFixed(4)}</p>
-                          <p>target = {targetY}</p>
-                          <p className="mt-1">L = ({networkState.a2![0][0].toFixed(4)} - {targetY})²</p>
-                          <p>L = ({(networkState.a2![0][0] - targetY).toFixed(4)})²</p>
-                          <p className="font-bold text-red-800">L = {networkState.loss.toFixed(6)}</p>
+                        <div className="space-y-2">
+                          <p className="font-medium text-red-700">Step 1: Get prediction and target</p>
+                          <div className="ml-3">
+                            <p>ŷ (prediction) = {networkState.a2![0][0].toFixed(4)}</p>
+                            <p>y (target) = {targetY}</p>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <p className="font-medium text-red-700">Step 2: Calculate error</p>
+                          <div className="ml-3">
+                            <p>error = ŷ - y</p>
+                            <p>error = {networkState.a2![0][0].toFixed(4)} - {targetY}</p>
+                            <p className="font-bold">error = {(networkState.a2![0][0] - targetY).toFixed(4)}</p>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <p className="font-medium text-red-700">Step 3: Square the error and divide by 2</p>
+                          <div className="ml-3">
+                            <p>L = ½ × error²</p>
+                            <p>L = ½ × ({(networkState.a2![0][0] - targetY).toFixed(4)})²</p>
+                            <p>L = ½ × {Math.pow(networkState.a2![0][0] - targetY, 2).toFixed(6)}</p>
+                            <p className="font-bold text-red-800 text-lg mt-1">L = {networkState.loss.toFixed(6)}</p>
+                          </div>
+                        </div>
+                        <div className="bg-red-100 p-3 rounded border border-red-300 mt-2">
+                          <p className="font-semibold text-red-900">Why MSE?</p>
+                          <ul className="text-sm mt-1 space-y-1 list-disc list-inside">
+                            <li>Penalizes larger errors more heavily (quadratic)</li>
+                            <li>Always positive (squared term)</li>
+                            <li>Differentiable everywhere (smooth gradient)</li>
+                            <li>The ½ factor simplifies backpropagation math</li>
+                          </ul>
                         </div>
                       </div>
                     </div>

@@ -1,21 +1,10 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export function TokenPredictionPyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>PyTorch Implementation</CardTitle>
-        <CardDescription>
-          Generate text with a language model in PyTorch
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="text-black rounded-lg overflow-x-auto">
-          <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const tokenPredictionCode = `import torch
 import torch.nn.functional as F
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
@@ -74,14 +63,43 @@ output = model.generate(
     top_p=0.9,
     do_sample=True
 )
-print(tokenizer.decode(output[0]))`}
+print(tokenizer.decode(output[0]))`;
+
+  const handleCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>PyTorch Implementation</CardTitle>
+        <CardDescription>
+          Generate text with a language model in PyTorch
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="flex justify-between items-start mb-2">
+            <p className="text-sm text-muted-foreground">
+              Text generation with PyTorch and Hugging Face:
+            </p>
+            <button
+              onClick={() => handleCopy(tokenPredictionCode)}
+              className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+              type="button"
+            >
+              Copy Code
+            </button>
+          </div>
+          <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+            <code>{tokenPredictionCode}</code>
           </pre>
+          <p className="text-sm text-muted-foreground">
+            Hugging Face Transformers library provides easy access to pre-trained language models
+            like GPT-2, GPT-3, and LLaMA. The <code>generate()</code> method handles all the
+            complexity of autoregressive generation with various sampling strategies.
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground mt-3">
-          Hugging Face Transformers library provides easy access to pre-trained language models
-          like GPT-2, GPT-3, and LLaMA. The <code>generate()</code> method handles all the
-          complexity of autoregressive generation with various sampling strategies.
-        </p>
       </CardContent>
     </Card>
   );

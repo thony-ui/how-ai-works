@@ -4,14 +4,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function ConvolutionPyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg">PyTorch Implementation</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <pre className="text-xs text-black rounded-lg min-w-0 max-w-full whitespace-pre-wrap break-words">
-          <code className="language-python">{`import torch
+  const code = `import torch
 import torch.nn as nn
 
 # Create a 2D convolution layer
@@ -64,7 +57,32 @@ model = nn.Sequential(
 
 # Process image through network
 features = model(torch.randn(1, 1, 28, 28))
-print(f"Final feature shape: {features.shape}")`}</code>
+print(f"Final feature shape: {features.shape}")`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg">PyTorch Implementation</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex justify-between items-start mb-2">
+          <p className="text-sm text-muted-foreground">
+            Convolution with PyTorch:
+          </p>
+          <button
+            onClick={handleCopy}
+            className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+            type="button"
+          >
+            Copy Code
+          </button>
+        </div>
+        <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+          <code>{code}</code>
         </pre>
       </CardContent>
     </Card>

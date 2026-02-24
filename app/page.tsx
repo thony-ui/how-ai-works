@@ -6,7 +6,9 @@ import {
   TrendingUpIcon, 
   BrainIcon, 
   ArrowRightIcon,
-  Grid3x3Icon
+  Grid3x3Icon,
+  TreeDeciduousIcon,
+  ScatterChartIcon
 } from 'lucide-react';
 
 export default function Home() {
@@ -81,6 +83,66 @@ export default function Home() {
               </Card>
             );
           })}
+        </div>
+      </section>
+
+      {/* ML Basics Section */}
+      <section className="container mx-auto px-6 py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-3">Machine Learning Basics</h2>
+            <p className="text-muted-foreground text-lg">
+              Learn fundamental ML algorithms with interactive visualizations
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                icon: TreeDeciduousIcon,
+                title: 'Decision Trees',
+                description: 'Build classification trees using entropy and information gain. Visualize splits and decision boundaries.',
+                href: '/decision-tree',
+                concepts: ['Entropy', 'Information Gain', 'Tree Building', 'Classification']
+              },
+              {
+                icon: ScatterChartIcon,
+                title: 'K-Means Clustering',
+                description: 'Watch centroids move to cluster data points. Explore k-means++ initialization and the elbow method.',
+                href: '/k-means',
+                concepts: ['Clustering', 'Centroids', 'K-Means++', 'Elbow Method']
+              }
+            ].map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <Card key={feature.title} className="group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 h-full flex flex-col">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-linear-to-br from-green-500 to-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardDescription className="text-sm leading-relaxed">
+                      {feature.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4 grow flex flex-col justify-end">
+                    <div className="flex flex-wrap gap-2">
+                      {feature.concepts.map((concept) => (
+                        <Badge key={concept} variant="secondary" className="text-xs">
+                          {concept}
+                        </Badge>
+                      ))}
+                    </div>
+                    <Link href={feature.href}>
+                      <Button className="w-full group-hover:bg-green-600 transition-colors gap-2">
+                        Explore
+                        <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </section>
 

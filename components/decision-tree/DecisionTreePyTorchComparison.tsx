@@ -81,13 +81,14 @@ print(f"Prediction for [0.5, 0.5]: {prediction[0]}")`;
         </p>
         <button
           onClick={handleCopy}
-          className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded"
+          className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+          type="button"
         >
           Copy Code
         </button>
       </div>
       
-      <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-xs font-mono min-w-0 max-w-full whitespace-pre-wrap wrap-break-word">
+      <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
         <code>{generatePythonCode()}</code>
       </pre>
       

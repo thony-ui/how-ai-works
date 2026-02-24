@@ -1,30 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function MultiClassPyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>PyTorch Implementation</CardTitle>
-        <CardDescription>
-          Build a multi-class classifier with PyTorch
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Tabs defaultValue="model">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="model">Model</TabsTrigger>
-            <TabsTrigger value="training">Training</TabsTrigger>
-            <TabsTrigger value="prediction">Prediction</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="model" className="space-y-3">
-            <div className="text-black p-4 rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const modelCode = `import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -59,19 +40,9 @@ print(f"Probabilities: {probabilities}")
 
 # Get prediction
 predicted_class = torch.argmax(probabilities, dim=1)
-print(f"Predicted class: {predicted_class.item()}")`}
-              </pre>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              The network outputs raw logits (unnormalized scores). Softmax is applied separately 
-              for inference, but the loss function combines both for numerical stability during training.
-            </p>
-          </TabsContent>
+print(f"Predicted class: {predicted_class.item()}")`;
 
-          <TabsContent value="training" className="space-y-3">
-            <div className="text-black rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const trainingCode = `import torch
 import torch.nn as nn
 import torch.optim as optim
 
@@ -109,20 +80,9 @@ for epoch in range(num_epochs):
     accuracy = (predictions == y_train).float().mean()
     
     if (epoch + 1) % 10 == 0:
-        print(f"Epoch {epoch+1}: Loss={loss.item():.4f}, Acc={accuracy:.2%}")`}
-              </pre>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              PyTorch&apos;s <code>CrossEntropyLoss</code> expects raw logits, not probabilities. 
-              It internally applies log_softmax for numerical stability. The optimizer automatically 
-              updates all network parameters based on computed gradients.
-            </p>
-          </TabsContent>
+        print(f"Epoch {epoch+1}: Loss={loss.item():.4f}, Acc={accuracy:.2%}")`;
 
-          <TabsContent value="prediction" className="space-y-3">
-            <div className="text-black rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const predictionCode = `import torch
 import torch.nn.functional as F
 
 # Set model to evaluation mode
@@ -171,9 +131,89 @@ plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap='viridis')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.title('Decision Boundary')
-plt.show()`}
-              </pre>
+plt.show()`;
+
+  const handleCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>PyTorch Implementation</CardTitle>
+        <CardDescription>
+          Build a multi-class classifier with PyTorch
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="model">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="model">Model</TabsTrigger>
+            <TabsTrigger value="training">Training</TabsTrigger>
+            <TabsTrigger value="prediction">Prediction</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="model" className="space-y-3">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-sm text-muted-foreground">
+                Multi-class network with PyTorch:
+              </p>
+              <button
+                onClick={() => handleCopy(modelCode)}
+                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+                type="button"
+              >
+                Copy Code
+              </button>
             </div>
+            <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+              <code>{modelCode}</code>
+            </pre>
+            <p className="text-sm text-muted-foreground">
+              The network outputs raw logits (unnormalized scores). Softmax is applied separately 
+              for inference, but the loss function combines both for numerical stability during training.
+            </p>
+          </TabsContent>
+
+          <TabsContent value="training" className="space-y-3">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-sm text-muted-foreground">
+                Training loop with PyTorch:
+              </p>
+              <button
+                onClick={() => handleCopy(trainingCode)}
+                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+                type="button"
+              >
+                Copy Code
+              </button>
+            </div>
+            <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+              <code>{trainingCode}</code>
+            </pre>
+            <p className="text-sm text-muted-foreground">
+              PyTorch&apos;s <code>CrossEntropyLoss</code> expects raw logits, not probabilities. 
+              It internally applies log_softmax for numerical stability. The optimizer automatically 
+              updates all network parameters based on computed gradients.
+            </p>
+          </TabsContent>
+
+          <TabsContent value="prediction" className="space-y-3">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-sm text-muted-foreground">
+                Making predictions with PyTorch:
+              </p>
+              <button
+                onClick={() => handleCopy(predictionCode)}
+                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+                type="button"
+              >
+                Copy Code
+              </button>
+            </div>
+            <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+              <code>{predictionCode}</code>
+            </pre>
             <p className="text-sm text-muted-foreground">
               During inference, we use <code>model.eval()</code> and <code>torch.no_grad()</code> 
               to disable dropout/batch norm training behavior and gradient computation. Decision 

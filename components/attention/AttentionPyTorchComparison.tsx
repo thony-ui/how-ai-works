@@ -1,30 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function AttentionPyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>PyTorch Implementation</CardTitle>
-        <CardDescription>
-          Implement scaled dot-product attention with PyTorch
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Tabs defaultValue="basic">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="basic">Basic Attention</TabsTrigger>
-            <TabsTrigger value="multihead">Multi-Head</TabsTrigger>
-            <TabsTrigger value="module">nn.Module</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="basic" className="space-y-3">
-            <div className="text-black rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const basicCode = `import torch
 import torch.nn.functional as F
 import math
 
@@ -80,19 +61,9 @@ output, weights = scaled_dot_product_attention(Q, K, V)
 print(f"Input shape: {x.shape}")
 print(f"Output shape: {output.shape}")
 print(f"Attention weights shape: {weights.shape}")
-print(f"\\nAttention weights:\\n{weights[0]}")`}
-              </pre>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              The core attention mechanism: compute similarity (Q·Kᵀ), scale, apply softmax, 
-              and create weighted sum of values. This is the foundation of all Transformer models.
-            </p>
-          </TabsContent>
+print(f"\\nAttention weights:\\n{weights[0]}")`;
 
-          <TabsContent value="multihead" className="space-y-3">
-            <div className="text-black rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const multiheadCode = `import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
@@ -162,19 +133,9 @@ x = torch.randn(batch_size, seq_len, d_model)
 output, weights = mha(x, x, x)
 
 print(f"Output shape: {output.shape}")  # (2, 10, 512)
-print(f"Weights shape: {weights.shape}")  # (2, 8, 10, 10)`}
-              </pre>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Multi-head attention allows the model to jointly attend to information from different 
-              representation subspaces. Each head learns to focus on different aspects of the input.
-            </p>
-          </TabsContent>
+print(f"Weights shape: {weights.shape}")  # (2, 8, 10, 10)`;
 
-          <TabsContent value="module" className="space-y-3">
-            <div className="text-black rounded-lg overflow-x-auto">
-              <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const moduleCode = `import torch
 import torch.nn as nn
 
 # PyTorch provides built-in multi-head attention!
@@ -251,9 +212,88 @@ class SimpleTransformer(nn.Module):
 
 model = SimpleTransformer(d_model=256, num_heads=8, d_ff=1024, num_layers=6)
 out = model(torch.randn(2, 10, 256))
-print(f"\\nTransformer output: {out.shape}")`}
-              </pre>
+print(f"\\nTransformer output: {out.shape}")`;
+
+  const handleCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>PyTorch Implementation</CardTitle>
+        <CardDescription>
+          Implement scaled dot-product attention with PyTorch
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="basic">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="basic">Basic Attention</TabsTrigger>
+            <TabsTrigger value="multihead">Multi-Head</TabsTrigger>
+            <TabsTrigger value="module">nn.Module</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="basic" className="space-y-3">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-sm text-muted-foreground">
+                Basic attention mechanism with PyTorch:
+              </p>
+              <button
+                onClick={() => handleCopy(basicCode)}
+                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+                type="button"
+              >
+                Copy Code
+              </button>
             </div>
+            <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+              <code>{basicCode}</code>
+            </pre>
+            <p className="text-sm text-muted-foreground">
+              The core attention mechanism: compute similarity (Q·Kᵀ), scale, apply softmax, 
+              and create weighted sum of values. This is the foundation of all Transformer models.
+            </p>
+          </TabsContent>
+
+          <TabsContent value="multihead" className="space-y-3">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-sm text-muted-foreground">
+                Multi-head attention with PyTorch:
+              </p>
+              <button
+                onClick={() => handleCopy(multiheadCode)}
+                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+                type="button"
+              >
+                Copy Code
+              </button>
+            </div>
+            <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+              <code>{multiheadCode}</code>
+            </pre>
+            <p className="text-sm text-muted-foreground">
+              Multi-head attention allows the model to jointly attend to information from different 
+              representation subspaces. Each head learns to focus on different aspects of the input.
+            </p>
+          </TabsContent>
+
+          <TabsContent value="module" className="space-y-3">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-sm text-muted-foreground">
+                Using PyTorch&apos;s built-in modules:
+              </p>
+              <button
+                onClick={() => handleCopy(moduleCode)}
+                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+                type="button"
+              >
+                Copy Code
+              </button>
+            </div>
+            <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+              <code>{moduleCode}</code>
+            </pre>
             <p className="text-sm text-muted-foreground">
               PyTorch provides <code>nn.MultiheadAttention</code> and <code>nn.Transformer</code> 
               modules out of the box. These are production-ready implementations used in state-of-the-art 

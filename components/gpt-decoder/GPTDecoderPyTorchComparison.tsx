@@ -1,21 +1,10 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export function GPTDecoderPyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>PyTorch Implementation</CardTitle>
-        <CardDescription>
-          Build a GPT-style decoder from scratch with PyTorch
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="text-black rounded-lg overflow-x-auto">
-          <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const gptDecoderCode = `import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -153,14 +142,43 @@ output = model.generate(
 )
 
 generated_text = tokenizer.decode(output[0])
-print(generated_text)`}
+print(generated_text)`;
+
+  const handleCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>PyTorch Implementation</CardTitle>
+        <CardDescription>
+          Build a GPT-style decoder from scratch with PyTorch
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="flex justify-between items-start mb-2">
+            <p className="text-sm text-muted-foreground">
+              GPT decoder implementation with PyTorch:
+            </p>
+            <button
+              onClick={() => handleCopy(gptDecoderCode)}
+              className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+              type="button"
+            >
+              Copy Code
+            </button>
+          </div>
+          <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+            <code>{gptDecoderCode}</code>
           </pre>
+          <p className="text-sm text-muted-foreground">
+            GPT models are decoder-only Transformers trained on massive text corpora to predict the 
+            next token. The architecture shown here is the foundation of models like GPT-2, GPT-3, 
+            GPT-4, and many other large language models.
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground mt-3">
-          GPT models are decoder-only Transformers trained on massive text corpora to predict the 
-          next token. The architecture shown here is the foundation of models like GPT-2, GPT-3, 
-          GPT-4, and many other large language models.
-        </p>
       </CardContent>
     </Card>
   );

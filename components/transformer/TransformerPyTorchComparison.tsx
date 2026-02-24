@@ -1,21 +1,10 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export function TransformerPyTorchComparison() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>PyTorch Implementation</CardTitle>
-        <CardDescription>
-          Build a complete Transformer block with PyTorch
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className=" text-black rounded-lg overflow-x-auto">
-          <pre className="font-mono text-sm min-w-0 max-w-full whitespace-pre-wrap break-words">
-{`import torch
+  const transformerCode = `import torch
 import torch.nn as nn
 
 class TransformerBlock(nn.Module):
@@ -114,14 +103,43 @@ print(f"Output logits: {logits.shape}")  # (2, 10, 50257)
 
 # Get predictions
 predictions = logits.argmax(dim=-1)
-print(f"Predicted tokens: {predictions.shape}")  # (2, 10)`}
+print(f"Predicted tokens: {predictions.shape}")  # (2, 10)`;
+
+  const handleCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>PyTorch Implementation</CardTitle>
+        <CardDescription>
+          Build a complete Transformer block with PyTorch
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="flex justify-between items-start mb-2">
+            <p className="text-sm text-muted-foreground">
+              Complete Transformer implementation with PyTorch:
+            </p>
+            <button
+              onClick={() => handleCopy(transformerCode)}
+              className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded shrink-0"
+              type="button"
+            >
+              Copy Code
+            </button>
+          </div>
+          <pre className="rounded-lg bg-slate-950 text-slate-50 p-4 overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words">
+            <code>{transformerCode}</code>
           </pre>
+          <p className="text-sm text-muted-foreground">
+            This is the core architecture used in GPT, BERT, and other Transformer models. The key 
+            innovation is the combination of self-attention (for global context) and feed-forward 
+            networks (for local processing), connected via residual pathways and layer normalization.
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground mt-3">
-          This is the core architecture used in GPT, BERT, and other Transformer models. The key 
-          innovation is the combination of self-attention (for global context) and feed-forward 
-          networks (for local processing), connected via residual pathways and layer normalization.
-        </p>
       </CardContent>
     </Card>
   );
