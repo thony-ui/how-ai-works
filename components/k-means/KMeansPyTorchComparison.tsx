@@ -51,21 +51,6 @@ print(f"Inertia: {inertia:.2f}")
 print(f"\\nCentroids:")
 for i, centroid in enumerate(centroids):
     print(f"  Cluster {i}: [{centroid[0]:.2f}, {centroid[1]:.2f}]")
-
-# Visualize results
-plt.figure(figsize=(10, 8))
-scatter = plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', alpha=0.6)
-plt.scatter(centroids[:, 0], centroids[:, 1], 
-            c='red', marker='X', s=200, linewidths=2,
-            edgecolors='white', label='Centroids')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title(f'K-Means Clustering (K={numClusters})')
-plt.colorbar(scatter, label='Cluster')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-
 # Predict cluster for new point
 new_point = np.array([[0, 0]])
 cluster = kmeans.predict(new_point)
@@ -86,7 +71,8 @@ for k in K_range:
     inertias.append(kmeans.inertia_)
 
 plt.figure(figsize=(10, 6))
-plt.plot(K_range, inertias, 'bo-', linewidth=2, markersize=8)
+plt.plot(K_range, inertias, 'bo-', 
+linewidth=2, markersize=8)
 plt.xlabel('Number of Clusters (K)')
 plt.ylabel('Inertia (Within-Cluster Sum of Squares)')
 plt.title('Elbow Method for Optimal K')
