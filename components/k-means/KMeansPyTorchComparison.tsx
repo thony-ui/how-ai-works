@@ -113,7 +113,7 @@ plt.show()`;
           </button>
         </div>
         
-        <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-xs font-mono min-w-0 max-w-full whitespace-pre-wrap wrap-break-word">
+        <pre className="rounded-lg overflow-x-auto text-xs font-mono min-w-0 max-w-full whitespace-pre-wrap wrap-break-word">
           <code>{generatePythonCode()}</code>
         </pre>
       </div>
@@ -131,7 +131,7 @@ plt.show()`;
           </button>
         </div>
         
-        <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-xs font-mono min-w-0 max-w-full whitespace-pre-wrap wrap-break-word">
+        <pre className="rounded-lg overflow-x-auto text-xs font-mono min-w-0 max-w-full whitespace-pre-wrap wrap-break-word">
           <code>{generateElbowCode()}</code>
         </pre>
       </div>
